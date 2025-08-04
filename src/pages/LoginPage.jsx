@@ -12,7 +12,7 @@ function LoginPage(props) {
 
   const navigate = useNavigate();
 
-  const { storeToken } = useContext(AuthContext);
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -27,6 +27,9 @@ function LoginPage(props) {
         console.log("JWT Token: ", response.data.authToken);
 
         storeToken(response.data.authToken);
+
+        // verify token by sending request to /auth/verify
+        authenticateUser();
 
         navigate("/");
       })
